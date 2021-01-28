@@ -27,7 +27,7 @@ const authSettings = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.AUTH_SECRET,
-  baseURL: "http://localhost:3000",
+  baseURL: process.env.BASE_URL,
   clientID: process.env.AUTH_CLIENT_ID,
   issuerBaseURL: process.env.AUTH_BASE_URL,
 };
@@ -43,12 +43,36 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.oidc.login({ returnTo: "/user_page" });
+    res.oidc.login({ returnTo: "/user_page" });
 });
 
 app.get("/user_page", async (req, res) => {
-  console.log(req.oidc.user);
-  res.render("user_page");
+    const users = await User.findOrCreate({
+        where: {
+            email : req.oidc.user.email
+        },
+        defaults: {
+            name: req.oidc.user.name,
+            email: req.oidc.user.email,
+            balance: 0
+        }
+    })
+    // because findOrCreate returns an array
+    const user = users[0]
+    res.render("user_page", {user});
+});
+
+app.post("/topup", (req, res) => {
+    const user = await User.
+    res.redirect("/user_page")
+});
+
+app.post("/invite", (req, res) => {
+    res.redirect("/user_page")
+});
+
+app.post("/pay", (req, res) => {
+    res.render("pay", {user});
 });
 
 app.listen(process.env.PORT, () => {
