@@ -1,39 +1,41 @@
-<h1>Welcome to the Banking app, {{user.name}}!</h1>
-  <main>
-      <div>
-          Current balance: £{{user.balance}}
-      </div>
-      <div>
-          <form action="/topup" method="POST">
-            <input name="name" type="text" placeholder="Enter amount" required />
-            <button>Top up</button>
-        </form>
-      </div>
+<div id="header" class="container-fluid">
+  <h1 id="title" class="d-inline">G.Y.M.<span class="title-small">Banking</span></h1>
+  <button class="btn btn-danger d-inline right"><a href="/logout">Log out</a></button>
+</div>
+<main>
+  <div class="container welcome">
+    <h5>Welcome to the Banking app, {{user.name}}!</h4>
+  </div>
+
+  <div class="standard-design ">
+
+    <div class="d-flex item justify-content-center margin-top">
+      <h4 class="font-weight-bold"> Current balance: £{{user.balance}}</h4>
+    </div>
+    <div class="d-flex item justify-content-center">
+      <form action="/topup" method="POST">
+        <input name="name" type="text" placeholder="Enter amount" required />
+        <button class="btn btn-success">Top up</button>
+      </form>
       <br>
-      <div>
-          {{!-- <form action="/invite" method="POST">
-            <input name="email" type="text" placeholder="Enter email" required />
-            <button>Invite</button>
-        </form> --}}
-        <form action="/invite" method="POST">
-          <input name="friendEmail" type="email" placeholder="E-mail"/>
-          <input hidden name="email" type="email" placeholder={{user.email}}/>
-          <button>Invite a friend</button>
-        </form>
-      </div>
-      <br>
-      <button><a href="/pay">Transfer money</a></button>
-      <br>
-      <button><a href="/logout">Log out</a></button>
-      <aside class="invite">
-        <h3>
-          Invite a friend?
-        </h3>
-        <form onSubmit="">
-          <input name="friendEmail" type="email" placeholder="E-mail"/>
-          <button>Send Friend Request</button>
-        </form>
-      </aside>
-  </main>
+    </div>
+    <div class="d-flex item justify-content-center margin-bottom">
+      <button class="btn btn-info"><a href="/pay">Transfer money</a></button>
+    </div>
+  </div>
+  {{!-- <form action="/invite" method="POST">
+    <input name="email" type="text" placeholder="Enter email" required />
+    <button>Invite</button>
+  </form> --}}
+  <div class=" container friend-request d-flex justify-content-center">
+    <form action="/password-change" method="POST">
+      <input class="d-inline" name="friendEmail" type="email" placeholder="E-mail" />
+      <input class="d-inline" name="email" type="hidden" placeholder={{user.email}} />
+      <button class="btn btn-primary d-inline">Invite a friend</button>
+    </form>
+  </div>
+  </div>
+
+</main>
 {{!-- <h1>Welcome to the Banking app, {{req.oidc.user.name}}!</h1> --}}
 {{!-- <h2>{{user.balance}}</h2> --}}
