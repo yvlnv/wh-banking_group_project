@@ -15,7 +15,11 @@ const sequelize =
       )
     : new Sequelize(connectionSettings[process.env.NODE_ENV]);
 
-class User extends Model {}
+class User extends Model {
+  async getBalance() {
+    this.transactions.reduce();
+  }
+}
 User.init(
   {
     name: DataTypes.STRING,
