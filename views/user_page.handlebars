@@ -1,6 +1,29 @@
-{{!-- <h1>Welcome to the Banking app, {{user.name}}!</h1> --}}
-<h1>Welcome to the Banking app!</h1>
+<h1>Welcome to the Banking app, {{user.name}}!</h1>
   <main>
+      <div>
+          Current balance: £{{user.balance}}
+      </div>
+      <div>
+          <form action="/topup" method="POST">
+            <input name="name" type="text" placeholder="Enter amount" required />
+            <button>Top up</button>
+        </form>
+      </div>
+      <br>
+      <div>
+          {{!-- <form action="/invite" method="POST">
+            <input name="email" type="text" placeholder="Enter email" required />
+            <button>Invite</button>
+        </form> --}}
+        <form action="/invite" method="POST">
+          <input name="friendEmail" type="email" placeholder="E-mail"/>
+          <input hidden name="email" type="email" placeholder={{user.email}}/>
+          <button>Invite a friend</button>
+        </form>
+      </div>
+      <br>
+      <button><a href="/pay">Transfer money</a></button>
+      <br>
       <button><a href="/logout">Log out</a></button>
   </main>
 {{!-- <h1>Welcome to the Banking app, {{req.oidc.user.name}}!</h1> --}}
