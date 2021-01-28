@@ -23,10 +23,10 @@ const authSettings = {
   },
   authRequired: false,
   auth0Logout: true,
-  secret: "this is my very secret secret",
+  secret: process.env.AUTH_SECRET,
   baseURL: "http://localhost:3000",
-  clientID: "PjveWea1twmtpaaCwNhp48ueNFM04rkC",
-  issuerBaseURL: "https://yvlnv.eu.auth0.com",
+  clientID: process.env.AUTH_CLIENT_ID,
+  issuerBaseURL: process.env.AUTH_BASE_URL,
 };
 
 app.use(auth(authSettings));
