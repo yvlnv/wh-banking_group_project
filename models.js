@@ -1,15 +1,19 @@
-const {Sequelize, Model, DataTypes} = require('sequelize')
-const path = require('path')
+const { Sequelize, Model, DataTypes } = require("sequelize");
+const path = require("path");
 
 const connectionSettings = {
-    test: {dialect: 'sqlite', storage: 'sqlite::memory:'},
-    dev: {dialect: 'sqlite', storage: path.join(__dirname, 'data.db')},
-    production: {dialect: 'postgres', protocol: 'postgres'}
-}
+  test: { dialect: "sqlite", storage: "sqlite::memory:" },
+  dev: { dialect: "sqlite", storage: path.join(__dirname, "data.db") },
+  production: { dialect: "postgres", protocol: "postgres" },
+};
 
-const sequelize = process.env.NODE_ENV === 'production'
-    ? new Sequelize(process.env.DATABASE_URL, connectionSettings[process.env.NODE_ENV])
-    : new Sequelize(connectionSettings[process.env.NODE_ENV])
+const sequelize =
+  process.env.NODE_ENV === "production"
+    ? new Sequelize(
+        process.env.DATABASE_URL,
+        connectionSettings[process.env.NODE_ENV]
+      )
+    : new Sequelize(connectionSettings[process.env.NODE_ENV]);
 
 class User extends Model {
   async getBalance() {
@@ -47,6 +51,9 @@ Transaction.init(
   },
   { sequelize }
 );
+
+class Friend extends Model {}
+Friend.init();
 
 User.hasMany(Transaction);
 Transaction.belongsTo(User);
