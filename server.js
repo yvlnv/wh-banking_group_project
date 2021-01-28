@@ -47,9 +47,31 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/user_page", async (req, res) => {
+    const users = await User.findOrCreate({
+        where: {
+            email : req.oidc.user.email
+        },
+        defaults: {
+            name: req.oidc.user.name,
+            email: req.oidc.user.email,
+            balance: 0
+        }
+    })
+    // because findOrCreate returns an array
+    const user = users[0]
+    res.render("user_page", {user});
+});
 
-  console.log(req.oidc.user);
-  res.render("user_page");
+app.post("/topup", (req, res) => {
+    res.redirect("/user_page")
+});
+
+app.post("/invite", (req, res) => {
+    res.redirect("/user_page")
+});
+
+app.post("/pay", (req, res) => {
+    res.render("pay", {user});
 });
 
 app.listen(process.env.PORT, () => {
