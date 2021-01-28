@@ -52,9 +52,6 @@ Transaction.init(
   { sequelize }
 );
 
-class Friend extends Model {}
-Friend.init();
-
 User.hasMany(Transaction);
 Transaction.belongsTo(User);
 
