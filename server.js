@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-require("dotenv").config({ path: "./" });
+require("dotenv").config();
 const { auth } = require("express-openid-connect");
 const Handlebars = require("handlebars");
 const expressHandlebars = require("express-handlebars");
