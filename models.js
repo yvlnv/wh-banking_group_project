@@ -52,8 +52,24 @@ Transaction.init(
   { sequelize }
 );
 
+class Friend extends Model {}
+Friend.init(
+  {
+    email: { type: DataTypes.STRING, allowNull: false },
+    domain: { type: DataTypes.STRING, allowNull: false },
+  },
+  { sequelize }
+);
+
+// MARK: - realtionships
+
+// transactions
 User.hasMany(Transaction);
 Transaction.belongsTo(User);
+
+// friends
+User.hasMany(Friend);
+Friend.belongsTo(User);
 
 module.exports = {
   User,
