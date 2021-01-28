@@ -27,7 +27,7 @@ const authSettings = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.AUTH_SECRET,
-  baseURL: "http://localhost:3000",
+  baseURL: process.env.BASE_URL,
   clientID: process.env.AUTH_CLIENT_ID,
   issuerBaseURL: process.env.AUTH_BASE_URL,
 };
@@ -43,10 +43,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.oidc.login({ returnTo: "/user_page" });
+    res.oidc.login({ returnTo: "/user_page" });
 });
 
 app.get("/user_page", async (req, res) => {
+
   console.log(req.oidc.user);
   res.render("user_page");
 });
