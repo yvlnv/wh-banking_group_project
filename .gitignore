@@ -1,5 +1,15 @@
 node_modules
+<<<<<<< HEAD
 *.sql
 *.db
+=======
+<<<<<<< HEAD
+db.sql
+data.db
+=======
+*.sql
+*.db
+>>>>>>> 3000cbc (updated gitignore)
+>>>>>>> 3807714 (updated gitignore)
 package-lock.json
 .env
