@@ -70,8 +70,8 @@ app.post("/invite", (req, res) => {
     res.redirect("/user_page")
 });
 
-app.post("/pay", (req, res) => {
-    res.render("pay", {user});
+app.get("/pay", (req, res) => {
+    res.render("pay");
 });
 
 app.listen(process.env.PORT, () => {
