@@ -14,16 +14,20 @@ app.use(express.json())
 app.engine('handlebars', handlebars)
 app.set('view engine', 'handlebars')
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 const authSettings = {
     routes: {
         login: false,
     },
     authRequired: false,
     auth0Logout: true,
-    secret: 'this is my very secret secret',
+    secret: process.env.AUTH_SECRET,
     baseURL: 'http://localhost:3000',
-    clientID: 'PjveWea1twmtpaaCwNhp48ueNFM04rkC',
-    issuerBaseURL: 'https://yvlnv.eu.auth0.com'
+    clientID: process.env.AUTH_CLIENT_ID,
+    issuerBaseURL: process.env.AUTH_BASE_URL
 }
 
 app.use(auth(authSettings))
@@ -45,6 +49,8 @@ app.get('/user_page', async (req, res) => {
     res.render('user_page')
 })
 
-app.listen(3000, () => {
-    sequelize.sync().then(() => console.log("Running..."))
+app.listen(process.env.PORT, () => {
+    sequelize.sync(() => {
+        console.log('Banking app running on port', process.env.PORT)
+    })
 })

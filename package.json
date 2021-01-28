@@ -4,17 +4,26 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "watch": "NODE_ENV=dev PORT=3000 nodemon server.js",
+    "test": "PORT=3001 jest --watchAll",
+    "test:cypress": "PORT=3001 cypress open"
   },
   "author": "yvlnv",
   "license": "ISC",
+  "engines": {
+    "node": "14",
+    "npm": "6"
+  },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-openid-connect": "^2.2.1",
-    "handlebars": "^4.7.6"
+    "handlebars": "^4.7.6",
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
