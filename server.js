@@ -71,7 +71,7 @@ app.post("/topup", async (req, res) => {
       }
     })
     const newBalance = user.balance += parseFloat(toAdd)
-    user.update({balance: newBalance})
+    user.update({balance: newBalance.toFixed(2)})
   }
   res.redirect("/user_page")
 });
