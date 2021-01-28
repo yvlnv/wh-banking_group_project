@@ -1,0 +1,17 @@
+<h1>Welcome to the Banking app!</h1>
+  <main>
+        <button><a href="/logout">Log out</a></button>
+        <button><a href="/user_page">Back</a></button>
+
+        <h3>Send Money to a Friend</h3>
+
+        <form method="POST">
+            <input name="amount" placeholder="£00.00" type="currency"/>
+            {{!-- <select name="recipient" id="recipient">
+                <option value="user"></option>
+            </select> --}}
+            <input name="email" placeholder="Recipient" type="email"/>
+            <input name="sender" type="email" value={{user.email}} hidden />
+            <button name="send">Send!</button>
+        </form>
+  </main>
