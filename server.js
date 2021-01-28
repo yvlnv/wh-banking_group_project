@@ -62,8 +62,18 @@ app.get("/user_page", async (req, res) => {
     res.render("user_page", {user});
 });
 
-app.post("/topup", (req, res) => {
-    res.redirect("/user_page")
+app.post("/topup", async (req, res) => {
+  const toAdd = req.body.amount
+  if (toAdd > 0) {
+    const user = await User.findOne({
+      where: {
+        email : req.oidc.user.email
+      }
+    })
+    const newBalance = user.balance += parseFloat(toAdd)
+    user.update({balance: newBalance})
+  }
+  res.redirect("/user_page")
 });
 
 app.post("/invite", (req, res) => {
