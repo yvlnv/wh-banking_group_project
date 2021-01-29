@@ -145,14 +145,29 @@ app.get("/friends/accept?from=:from&to=:to", (req, res) => {
   }
 });
 
-// pay page?
-app.get("/pay", (req, res) => {
-  res.render("pay");
+// pay page
+app.get("/pay", async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      email: req.oidc.user.email,
+    },
+  });
+  const friends = user.getFriends()
+  res.render("pay", {friends});
 });
 
 // pay other
-app.post("/pay", (req, res) => {
-  let user = 1;
+app.post("/pay", async (req, res) => {
+  const toAdd = req.body.amount;
+  if (toAdd > 0) {
+    const user = await User.findOne({
+      where: {
+        email: req.oidc.user.email,
+      },
+    });
+    // likely put your logic here (inside if) not to allow smaller transfers
+  }
+  res.redirect("/user_page");
 });
 
 // getting public key
