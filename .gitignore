@@ -3,3 +3,5 @@ node_modules
 *.db
 package-lock.json
 .env
+private-key.pem
+public-key.pem
