@@ -110,14 +110,20 @@ app.get("/friends/accept", (req, res) => {
   res.sendStatus(201)
 });
 
-// pay page?
-app.get("/pay", (req, res) => {
-  res.render("pay");
+// pay page
+app.get("/pay", async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      email: req.oidc.user.email,
+    },
+  });
+  const friends = user.getFriends()
+  res.render("pay", {friends});
 });
 
 // pay other
 app.post("/pay", (req, res) => {
-  let user = 1;
+  res.redirect("/user_page");
 });
 
 // getting public key
