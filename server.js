@@ -1,30 +1,19 @@
 const express = require("express");
-const {
-  auth,
-  requiresAuth
-} = require("express-openid-connect");
+const { auth, requiresAuth } = require("express-openid-connect");
 const Handlebars = require("handlebars");
 const expressHandlebars = require("express-handlebars");
 const fs = require("fs");
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
-const cors = require('cors');
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
+const cors = require("cors");
 const nodemailer = require("nodemailer");
-const Mailer = require('./mailer');
-const {
-  verify,
-  decode
-} = require("jsonwebtoken");
-const {
-  Verify
-} = require("crypto");
+const Mailer = require("./mailer");
+const { verify, decode } = require("jsonwebtoken");
+const { Verify } = require("crypto");
+const fetch = require("node-fetch");
 
 // const Transaction = require("./transaction");
-const {
-  User,
-  Friend,
-  sequelize
-} = require("./models");
+const { User, Friend, sequelize } = require("./models");
 
 // loading dotenv
 if (process.env.NODE_ENV !== "production") {
@@ -61,9 +50,11 @@ app.set("view engine", "handlebars");
 
 // setting middleware
 app.use(express.static("public"));
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use(express.json());
 app.use(auth(authSettings));
 
@@ -79,7 +70,7 @@ app.get("/", (req, res) => {
 // login endpoint
 app.get("/login", (req, res) => {
   res.oidc.login({
-    returnTo: "/user_page"
+    returnTo: "/user_page",
   });
 });
 
@@ -97,10 +88,10 @@ app.get("/user_page", requiresAuth(), async (req, res) => {
   });
   // because findOrCreate returns an array
   const user = users[0];
-  const friends = await Friend.findAll()
+  const friends = await Friend.findAll();
   res.render("user_page", {
     user,
-    friends
+    friends,
   });
 });
 
@@ -115,18 +106,17 @@ app.post("/topup", async (req, res) => {
     });
     const newBalance = (user.balance += parseFloat(toAdd));
     user.update({
-      balance: newBalance.toFixed(2)
+      balance: newBalance.toFixed(2),
     });
   }
   res.redirect("/user_page");
 });
 
 app.post("/friends/invite", requiresAuth(), (req, res) => {
-  const email = req.body.friendEmail
-  const mailer = new Mailer(req.oidc.user.email)
-  mailer.sendEmailInvite(email)
-  res.render('confirm', { email })
-
+  const email = req.body.friendEmail;
+  const mailer = new Mailer(req.oidc.user.email);
+  mailer.sendEmailInvite(email);
+  res.render("confirm", { email });
 });
 
 // app.get("/friends/confirm", (req, res) => {
@@ -135,7 +125,7 @@ app.post("/friends/invite", requiresAuth(), (req, res) => {
 
 //accept friends page
 app.get("/friends/accept", async (req, res) => {
-  const {from, to} = req.query
+  const { from, to } = req.query;
   if (from && to) {
     const user = await User.findOne({
       where: {
@@ -144,14 +134,14 @@ app.get("/friends/accept", async (req, res) => {
     });
     await Friend.create({
       email: to,
-      domain: process.env.BASE_URL
-    })
+      domain: process.env.BASE_URL,
+    });
     res.render("accept", {
       from,
-      to
+      to,
     });
   } else {
-    sendStatus(404)
+    sendStatus(404);
   }
 });
 
@@ -162,8 +152,8 @@ app.get("/pay", async (req, res) => {
       email: req.oidc.user.email,
     },
   });
-  const friends = await Friend.findAll()
-  res.render("pay", {friends});
+  const friends = await Friend.findAll();
+  res.render("pay", { friends });
 });
 
 // pay other
@@ -187,12 +177,27 @@ app.get("/api/pay", (req, res) => {
   });
 });
 
+// let amount = req.body.amount;
+
+// let sender = req.oidc.user.email;
+// let reciever = req.body.email;
+// let recieverDomain = process.env.BASE_URL;
+
+// let transaction = Transaction(amount, sender, reciever);
+
+// let token = new Transaction(amount, sender, reciever);
+
 // accepting payment
 app.post("/api/pay", express.text(), async (req, res) => {
   let token = req.body;
 
   let tokenData = decode(token);
-  tokenData = verify();
+
+  let publicKey = await fetch(`${process.env.BASE_URL}/api/pay`);
+
+  tokenData.senderDomain;
+
+  tokenData = verify(token);
 });
 
 // run application
