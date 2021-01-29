@@ -97,7 +97,7 @@ app.get("/user_page", requiresAuth(), async (req, res) => {
   });
   // because findOrCreate returns an array
   const user = users[0];
-  const friends = user.getFriends()
+  const friends = await Friend.findAll()
   res.render("user_page", {
     user,
     friends
