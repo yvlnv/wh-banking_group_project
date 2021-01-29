@@ -122,7 +122,16 @@ app.get("/pay", async (req, res) => {
 });
 
 // pay other
-app.post("/pay", (req, res) => {
+app.post("/pay", async (req, res) => {
+  const toAdd = req.body.amount;
+  if (toAdd > 0) {
+    const user = await User.findOne({
+      where: {
+        email: req.oidc.user.email,
+      },
+    });
+    // likely put your logic here (inside if) not to allow smaller transfers
+  }
   res.redirect("/user_page");
 });
 

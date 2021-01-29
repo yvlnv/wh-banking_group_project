@@ -10,7 +10,7 @@
   </div>
   <div class="standard-design ">
     <div class="d-flex item justify-content-center margin-top">
-      <form action="/pay" method="POST">
+      <form method="POST">
         <input class="pay-item" name="amount" placeholder="£0.00" type="currency" />
         <br>
         <select name="friend" id="friend" class="pay-item">
@@ -21,6 +21,6 @@
         </select>
         <input class="pay-item" name="sender" type="hidden" value={{user.email}} />
         <br>
-        <a href="/pay/"><button class="btn btn-success" name="send">Send!</button></a>
+        <a href="/pay"><button class="btn btn-success" name="send">Send!</button></a>
       </form>
 </main>
