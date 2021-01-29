@@ -11,7 +11,7 @@ const Mailer = require('./mailer');
 const { verify, decode } = require("jsonwebtoken");
 const { Verify } = require("crypto");
 
-const Transaction = require("./transaction");
+// const Transaction = require("./transaction");
 const { User, sequelize } = require("./models");
 
 // loading dotenv
