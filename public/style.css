@@ -4,6 +4,7 @@
 #header {
     padding: 10px;
     background-color: steelblue;
+    max-width: 1000px;
 }
 
 #title {
@@ -46,6 +47,7 @@ button a {
 .welcome {
     margin-top: 30px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .pay-item {
@@ -59,8 +61,9 @@ button a {
 }
 
 .btn-danger, .btn-info {
-    color: white;
     text-decoration: none;
+    background-color: steelblue;
+    border-color: steelblue;
 }
 
 .margin-top {

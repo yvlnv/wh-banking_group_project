@@ -82,7 +82,7 @@ app.post("/topup", async (req, res) => {
 });
 
 app.post("/friends/invite", requiresAuth(), (req, res) => {
-  const email = req.body.email
+  const email = req.body.friendEmail
   const mailer = new Mailer(req.oidc.user.email)
   mailer.sendEmailInvite(email)
   res.sendStatus(201)
