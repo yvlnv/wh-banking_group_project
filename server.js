@@ -84,11 +84,6 @@ app.get("/user_page", requiresAuth(), async (req, res) => {
   res.render("user_page", { user });
 });
 
-// friend invite form
-app.post("/user_page/invite", async (req, res) => {
-  res.redirect("/user_page");
-});
-
 // topup balance
 app.post("/topup", async (req, res) => {
   const toAdd = req.body.amount;
@@ -139,12 +134,6 @@ app.post("/api/pay", express.text(), async (req, res) => {
   let tokenData = decode(token);
   tokenData = verify();
 });
-
-// friend invite?
-app.get("/friends/invite", (req, res) => {});
-
-// friend invite?
-app.post("/friend/invite");
 
 // run application
 app.listen(process.env.PORT, () => {
