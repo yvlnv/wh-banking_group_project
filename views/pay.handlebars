@@ -16,7 +16,7 @@
         <select name="friend" id="friend" class="pay-item">
           <option value="unassigned">Recipient</option>
           {{#each friends}}
-          <option value="{{this.email}}">{{this.email}}</option>
+          <option value="{{this.id}}">{{this.email}}</option>
           {{/each}}
         </select>
         <input class="pay-item" name="sender" type="hidden" value={{user.email}} />
