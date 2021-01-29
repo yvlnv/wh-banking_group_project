@@ -1,17 +1,25 @@
-<h1>Welcome to the Banking app!</h1>
-  <main>
-        <button><a href="/logout">Log out</a></button>
-        <button><a href="/user_page">Back</a></button>
+<div id="header" class="container-fluid">
+  <h1 id="title" class="d-inline">G.Y.M.<span class="title-small">Banking</span></h1>
+  <button class="btn btn-danger d-inline right"><a href="/logout">Log out</a></button>
+  <button class="btn btn-info d-inline right second-btn"><a href="/user_page">Back</a></button>
+</div>
+<main>
 
-        <h3>Send Money to a Friend</h3>
-
-        <form method="POST">
-            <input name="amount" placeholder="£00.00" type="currency"/>
-            {{!-- <select name="recipient" id="recipient">
-                <option value="user"></option>
-            </select> --}}
-            <input name="email" placeholder="Recipient" type="email"/>
-            <input name="sender" type="email" value={{user.email}} hidden />
-            <button name="send">Send!</button>
-        </form>
-  </main>
+  <div class="container welcome">
+    <h3>Send Money to a Friend</h3>
+  </div>
+  <div class="standard-design ">
+    <div class="d-flex item justify-content-center margin-top">
+      <form method="POST">
+        <input class="pay-item" name="amount" placeholder="00.00" type="currency" />
+        {{!-- <select name="recipient" id="recipient">
+          <option value="user"></option>
+        </select> --}}
+        <br>
+        <input class="pay-item" name="email" placeholder="Recipient" type="email" />
+        <br>
+        <input class="pay-item" name="sender" type="hidden" value={{user.email}} />
+        <br>
+        <button class="btn btn-success" name="send">Send!</button>
+      </form>
+</main>

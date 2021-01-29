@@ -1,0 +1,91 @@
+
+/*HEADER*/
+
+#header {
+    padding: 10px;
+    background-color: steelblue;
+}
+
+#title {
+    font-family: 'Coda Caption', sans-serif;
+    font-size: bolder;
+}
+
+.second-btn {
+    margin-right: 5px;
+}
+
+.title-small {
+    font-size: 20px;
+}
+/*HOME PAGE*/
+
+.home {
+    margin-top: 30px;
+}
+
+.first-letter {
+    font-size: 70px;
+    line-height: 40px;
+    font-family: 'Coda Caption', sans-serif;
+    font-size: bolder;
+  }
+
+.callout {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button a {
+    text-decoration: none;
+    color: white;
+}
+
+/*ADMIN PAGE*/
+
+.welcome {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.pay-item {
+    margin-bottom: 10px;
+}
+
+/*REUSEABLE*/
+
+.right {
+    float: right;
+}
+
+.btn-danger, .btn-info {
+    color: white;
+    text-decoration: none;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.standard-design{
+    margin: 10%;
+    background-color: slategray;
+    padding: 10px;
+    margin: auto;
+    max-width: 500px;
+}
+
+.item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.friend-request {
+    padding: 10px;
+    margin-top: 5%;
+}
+
+
