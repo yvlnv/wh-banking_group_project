@@ -8,7 +8,6 @@
   </div>
 
   <div class="standard-design ">
-
     <div class="d-flex item justify-content-center margin-top">
       <h4 class="font-weight-bold"> Current balance: £{{user.balance}}</h4>
     </div>
@@ -19,10 +18,24 @@
       </form>
       <br>
     </div>
-    <div class="d-flex item justify-content-center margin-bottom">
+    <div class="d-flex item justify-content-center">
       <button class="btn btn-info"><a href="/pay">Transfer money</a></button>
     </div>
   </div>
+  <br>
+  <div class="standard-design margin-top ">
+    <div class="d-flex item margin-bottom">
+      <h5>Your Friends</h5>
+    </div>
+    <div class=" margin-bottom"></div>
+    <ul style="list-style-type: none;">
+      <li value="5000">fred@live.com</li>
+      {{#each friends}}
+      <li value="{{this.id}}">{{this.email}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
   {{!-- <form action="/invite" method="POST">
     <input name="email" type="text" placeholder="Enter email" required />
     <button>Invite</button>
@@ -34,7 +47,7 @@
       <button class="btn btn-primary d-inline">Invite a friend</button>
     </form>
   </div>
-  </div>
+
 
 </main>
 {{!-- <h1>Welcome to the Banking app, {{req.oidc.user.name}}!</h1> --}}
