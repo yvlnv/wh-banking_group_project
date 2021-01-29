@@ -10,14 +10,15 @@
   </div>
   <div class="standard-design ">
     <div class="d-flex item justify-content-center margin-top">
-      <form method="POST">
-        <input class="pay-item" name="amount" placeholder="00.00" type="currency" />
-        {{!-- <select name="recipient" id="recipient">
-          <option value="user"></option>
-        </select> --}}
+      <form action="/pay" method="POST">
+        <input class="pay-item" name="amount" placeholder="£0.00" type="currency" />
         <br>
-        <input class="pay-item" name="email" placeholder="Recipient" type="email" />
-        <br>
+        <select name="friend" id="friend" class="pay-item">
+          <option value="unassigned">Recipient</option>
+          {{#each friends}}
+          <option value="{{this.id}}">{{this.email}}</option>
+          {{/each}}
+        </select>
         <input class="pay-item" name="sender" type="hidden" value={{user.email}} />
         <br>
         <button class="btn btn-success" name="send">Send!</button>
