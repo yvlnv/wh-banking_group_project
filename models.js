@@ -69,6 +69,7 @@ Friend.belongsTo(User);
 
 module.exports = {
   User,
+  Friend,
   Transaction,
   sequelize,
 };

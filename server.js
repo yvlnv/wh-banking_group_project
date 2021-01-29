@@ -22,6 +22,7 @@ const {
 // const Transaction = require("./transaction");
 const {
   User,
+  Friend,
   sequelize
 } = require("./models");
 
@@ -131,15 +132,22 @@ app.post("/friends/invite", requiresAuth(), (req, res) => {
 // })
 
 //accept friends page
-app.get("/friends/accept?from=:from&to=:to", (req, res) => {
-  const from = req.params.from
-  const to = req.params.to
+app.get("/friends/accept", async (req, res) => {
+  const {from, to} = req.query
   if (from && to) {
+    const user = await User.findOne({
+      where: {
+        email: req.oidc.user.email,
+      },
+    });
+    await Friend.create({
+      email: to,
+      domain: process.env.BASE_URL
+    })
     res.render("accept", {
       from,
       to
     });
-    res.sendStatus(201)
   } else {
     sendStatus(404)
   }
@@ -152,7 +160,7 @@ app.get("/pay", async (req, res) => {
       email: req.oidc.user.email,
     },
   });
-  const friends = user.getFriends()
+  const friends = await Friend.findAll()
   res.render("pay", {friends});
 });
 
