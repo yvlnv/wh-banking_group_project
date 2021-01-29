@@ -1,5 +1,8 @@
 const express = require("express");
-const { auth, requiresAuth } = require("express-openid-connect");
+const {
+  auth,
+  requiresAuth
+} = require("express-openid-connect");
 const Handlebars = require("handlebars");
 const expressHandlebars = require("express-handlebars");
 const fs = require("fs");
@@ -8,11 +11,19 @@ const jwksRsa = require('jwks-rsa');
 const cors = require('cors');
 const nodemailer = require("nodemailer");
 const Mailer = require('./mailer');
-const { verify, decode } = require("jsonwebtoken");
-const { Verify } = require("crypto");
+const {
+  verify,
+  decode
+} = require("jsonwebtoken");
+const {
+  Verify
+} = require("crypto");
 
 // const Transaction = require("./transaction");
-const { User, sequelize } = require("./models");
+const {
+  User,
+  sequelize
+} = require("./models");
 
 // loading dotenv
 if (process.env.NODE_ENV !== "production") {
@@ -49,7 +60,9 @@ app.set("view engine", "handlebars");
 
 // setting middleware
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 app.use(auth(authSettings));
 
@@ -64,7 +77,9 @@ app.get("/", (req, res) => {
 
 // login endpoint
 app.get("/login", (req, res) => {
-  res.oidc.login({ returnTo: "/user_page" });
+  res.oidc.login({
+    returnTo: "/user_page"
+  });
 });
 
 // user page
@@ -81,7 +96,9 @@ app.get("/user_page", requiresAuth(), async (req, res) => {
   });
   // because findOrCreate returns an array
   const user = users[0];
-  res.render("user_page", { user });
+  res.render("user_page", {
+    user
+  });
 });
 
 // topup balance
@@ -94,7 +111,9 @@ app.post("/topup", async (req, res) => {
       },
     });
     const newBalance = (user.balance += parseFloat(toAdd));
-    user.update({ balance: newBalance.toFixed(2) });
+    user.update({
+      balance: newBalance.toFixed(2)
+    });
   }
   res.redirect("/user_page");
 });
@@ -103,11 +122,27 @@ app.post("/friends/invite", requiresAuth(), (req, res) => {
   const email = req.body.friendEmail
   const mailer = new Mailer(req.oidc.user.email)
   mailer.sendEmailInvite(email)
-  res.sendStatus(201)
+  res.render('confirm', { email })
+
 });
 
-app.get("/friends/accept", (req, res) => {
-  res.sendStatus(201)
+// app.get("/friends/confirm", (req, res) => {
+//   res.render('confirm', {email})
+// })
+
+//accept friends page
+app.get("/friends/accept?from=:from&to=:to", (req, res) => {
+  const from = req.params.from
+  const to = req.params.to
+  if (from && to) {
+    res.render("accept", {
+      from,
+      to
+    });
+    res.sendStatus(201)
+  } else {
+    sendStatus(404)
+  }
 });
 
 // pay page
