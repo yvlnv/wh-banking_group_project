@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { auth } = require("express-openid-connect");
+const { auth, requiresAuth } = require("express-openid-connect");
 const Handlebars = require("handlebars");
 const expressHandlebars = require("express-handlebars");
 const {
@@ -10,6 +10,11 @@ const { User, sequelize } = require("./models");
 const handlebars = expressHandlebars({
   handlebars: allowInsecurePrototypeAccess(Handlebars),
 });
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
+const cors = require('cors');
+const nodemailer = require("nodemailer");
+const Mailer = require('./mailer');
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -76,8 +81,15 @@ app.post("/topup", async (req, res) => {
   res.redirect("/user_page")
 });
 
-app.post("/invite", (req, res) => {
-    res.redirect("/user_page")
+app.post("/friends/invite", requiresAuth(), (req, res) => {
+  const email = req.body.email
+  const mailer = new Mailer(req.oidc.user.email)
+  mailer.sendEmailInvite(email)
+  res.sendStatus(201)
+});
+
+app.get("/friends/accept", (req, res) => {
+  res.sendStatus(201)
 });
 
 app.get("/pay", (req, res) => {
