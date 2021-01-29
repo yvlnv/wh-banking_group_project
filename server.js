@@ -97,8 +97,10 @@ app.get("/user_page", requiresAuth(), async (req, res) => {
   });
   // because findOrCreate returns an array
   const user = users[0];
+  const friends = user.getFriends()
   res.render("user_page", {
-    user
+    user,
+    friends
   });
 });
 
