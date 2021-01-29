@@ -3,6 +3,13 @@ const { auth, requiresAuth } = require("express-openid-connect");
 const Handlebars = require("handlebars");
 const expressHandlebars = require("express-handlebars");
 const fs = require("fs");
+const jwt = require('express-jwt');
+const jwksRsa = require('jwks-rsa');
+const cors = require('cors');
+const nodemailer = require("nodemailer");
+const Mailer = require('./mailer');
+const { verify, decode } = require("jsonwebtoken");
+const { Verify } = require("crypto");
 
 const Transaction = require("./transaction");
 const { User, sequelize } = require("./models");
@@ -15,8 +22,6 @@ if (process.env.NODE_ENV !== "production") {
 const {
   allowInsecurePrototypeAccess,
 } = require("@handlebars/allow-prototype-access");
-const { verify, decode } = require("jsonwebtoken");
-const { Verify } = require("crypto");
 
 const handlebars = expressHandlebars({
   handlebars: allowInsecurePrototypeAccess(Handlebars),
@@ -99,9 +104,15 @@ app.post("/topup", async (req, res) => {
   res.redirect("/user_page");
 });
 
-// idk
-app.post("/invite", (req, res) => {
-  res.redirect("/user_page");
+app.post("/friends/invite", requiresAuth(), (req, res) => {
+  const email = req.body.friendEmail
+  const mailer = new Mailer(req.oidc.user.email)
+  mailer.sendEmailInvite(email)
+  res.sendStatus(201)
+});
+
+app.get("/friends/accept", (req, res) => {
+  res.sendStatus(201)
 });
 
 // pay page?
