@@ -63,8 +63,6 @@ button a {
 .btn-danger, .btn-info {
     color: white;
     text-decoration: none;
-    background-color: steelblue;
-    border-color: steelblue;
 }
 
 .margin-top {
