@@ -24,6 +24,7 @@
     "express-jwt": "^6.0.0",
     "express-openid-connect": "^2.2.1",
     "handlebars": "^4.7.6",
+    "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.12.2",
     "nodemailer": "^6.4.17",
     "pg": "^8.5.1",

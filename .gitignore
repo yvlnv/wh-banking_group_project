@@ -1,5 +1,7 @@
 node_modules
-db.sql
-data.db
+*.sql
+*.db
 package-lock.json
 .env
+private-key.pem
+public-key.pem
