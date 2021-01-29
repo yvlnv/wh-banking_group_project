@@ -23,8 +23,7 @@ class Mailer {
             to: to,
             subject: "Let's become friends",
             html: `Hi there,<br>I would like to invite you to be my friend! <br> 
-            <a href="${process.env.BASE_URL}/friends/accept?
-            from=${encodeURIComponent(this.from)}&to=${encodeURIComponent(to)}">Accept Request</a>`,
+            <a href="${process.env.BASE_URL}/friends/accept?from=${encodeURIComponent(this.from)}&to=${encodeURIComponent(to)}">Accept Request</a>`,
             replyTo: 'no-reply@banking-app.com'
         }
         this.transport.sendMail(email, (err, result) => {
